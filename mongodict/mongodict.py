@@ -9,7 +9,7 @@ class MongoDict(collections.MutableMapping):
             collection = kwargs['collection']
             del kwargs['collection']
         else:
-            raise Exception('You mast pass the collection by collection '
+            raise Exception('You must pass the collection by collection '
                             'keyword')
         self.store = collection
         self.store.ensure_index('id', unique=True, cache_for=300)
