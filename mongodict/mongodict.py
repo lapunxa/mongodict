@@ -11,7 +11,6 @@ class MongoDict(collections.MutableMapping):
         else:
             raise Exception('You mast pass the collection by collection '
                             'keyword')
-        #self.store = mdbpool.get_collection(collection)
         self.store = collection
         self.store.ensure_index('id', unique=True, cache_for=300)
         self.update(dict(*args, **kwargs))
@@ -34,7 +33,8 @@ class MongoDict(collections.MutableMapping):
         self.store.remove({'id': key})
 
     def __iter__(self):
-        return iter(self.store.find())
+        for x in self.store.find():
+            yield x['id']
 
     def __len__(self):
         return self.store.find().count()
